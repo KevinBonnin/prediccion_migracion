@@ -6,7 +6,7 @@ import mysql.connector
 
 conexion = mysql.connector.connect(user ='admin', password = 'migration2023', host = 'database-migration.cq1xp27nrjmz.us-east-2.rds.amazonaws.com', database = 'migration', port = '3306')
 
-indicadores = pd.read_sql("SELECT * FROM migration.indicadores", conexion)
+indicadores = pd.read_csv('indicadores.csv')
 
 def obtener_predicciones_por_pais(df, modelo):
     predicciones_por_pais = pd.DataFrame()
