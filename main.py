@@ -17,7 +17,7 @@ def obtener_predicciones_por_pais(df, modelo):
         predicciones_por_pais = predicciones_por_pais.append({"País": pais, "Predicción": prediccion}, ignore_index=True)
     return predicciones_por_pais
 
-modelo = joblib.load('modelo_regresion.pkl')
+modelo = joblib.load('modelo_migracion.pkl')
 
 app = FastAPI()
 
