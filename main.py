@@ -2,9 +2,9 @@ import pandas as pd
 from fastapi import FastAPI
 import uvicorn
 import joblib
-import mysql.connector
+#import mysql.connector
 
-conexion = mysql.connector.connect(user ='admin', password = 'migration2023', host = 'database-migration.cq1xp27nrjmz.us-east-2.rds.amazonaws.com', database = 'migration', port = '3306')
+#conexion = mysql.connector.connect(user ='admin', password = 'migration2023', host = 'database-migration.cq1xp27nrjmz.us-east-2.rds.amazonaws.com', database = 'migration', port = '3306')
 
 indicadores = pd.read_csv('indicadores.csv')
 
