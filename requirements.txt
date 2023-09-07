@@ -3,3 +3,4 @@ numpy
 fastapi
 scikit-learn
 uvicorn
+mysql-connector
