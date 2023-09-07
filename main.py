@@ -13,7 +13,7 @@ def obtener_predicciones_por_pais(df, modelo):
     for index, fila in df.iterrows():
         variables_independientes = fila[["Crecimiento_PIB", "Tasa_desempleo", "Inflacion_PIB", "Control_Corrupcion", "Emisiones_CO2","Esperanza_vida"]].values.reshape(1, -1)
         prediccion = modelo.predict(variables_independientes)[0]
-        pais = fila["Migracion_neta"]
+        pais = fila["Pais"]
         predicciones_por_pais = predicciones_por_pais.append({"País": pais, "Predicción": prediccion}, ignore_index=True)
     return predicciones_por_pais
 
