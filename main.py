@@ -25,3 +25,9 @@ app = FastAPI()
 def prediccion():
     predicciones = obtener_predicciones_por_pais(indicadores, modelo)
     return predicciones
+
+@app.get("/modelo2/")
+def prediccion_flujo(crecimiento_pib,tasa_desempleo,inflacion_pib,muertes_conflicto,control_corrupcion,esperanza_vida):
+    datos_prediccion = [[crecimiento_pib, tasa_desempleo, inflacion_pib, muertes_conflicto, control_corrupcion, esperanza_vida]]
+    prediccion = modelo.predict(datos_prediccion)
+    return prediccion
