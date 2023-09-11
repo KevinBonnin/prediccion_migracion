@@ -28,6 +28,8 @@ def prediccion():
 
 @app.get("/modelo2/")
 def prediccion_flujo(crecimiento_pib,tasa_desempleo,inflacion_pib,muertes_conflicto,control_corrupcion,esperanza_vida):
+    datos_prediccion = {}
     datos_prediccion = [[crecimiento_pib, tasa_desempleo, inflacion_pib, muertes_conflicto, control_corrupcion, esperanza_vida]]
-    prediccion = modelo.predict(datos_prediccion)
-    return prediccion
+    df = pd.DataFrame(datos_prediccion)
+    prediccion = modelo.predict(df)
+    return prediccion[0]
