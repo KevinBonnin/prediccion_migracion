@@ -185,8 +185,8 @@ def obtener_datos_por_pais(pais):
         lista_fila = fila_buscada.iloc[0].drop('Pais').tolist()
     return lista_fila
 
-@app.get("/modelo2")
-def prediccion_flujo1(pais: Pais):
+@app.get("/modelo de prediccion/Predice el flujo migratorio para el proximo año")
+def prediccion_flujo(pais: Pais):
     datos_prediccion = obtener_datos_por_pais(pais)
     df = pd.DataFrame([datos_prediccion])
     prediccion = modelo.predict(df)
