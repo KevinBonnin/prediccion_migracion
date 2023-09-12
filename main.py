@@ -190,4 +190,5 @@ def prediccion_flujo(pais: Pais):
     datos_prediccion = obtener_datos_por_pais(pais)
     df = pd.DataFrame([datos_prediccion])
     prediccion = modelo.predict(df)
-    return prediccion[0]
+    prediccion_entero = int(prediccion[0])
+    return prediccion_entero
