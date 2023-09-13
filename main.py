@@ -185,10 +185,18 @@ def obtener_datos_por_pais(pais):
         lista_fila = fila_buscada.iloc[0].drop('Pais').tolist()
     return lista_fila
 
-@app.get("/modelo de prediccion/Predice el flujo migratorio para el proximo año")
+@app.get("/Modelo de prediccion/Predice con datos del 2019")
 def prediccion_flujo(pais: Pais):
     datos_prediccion = obtener_datos_por_pais(pais)
     df = pd.DataFrame([datos_prediccion])
     prediccion = modelo.predict(df)
     prediccion_entero = int(prediccion[0])
     return prediccion_entero
+
+@app.get("/Modelo de prediccion/Insercion de datos manual")
+def prediccion_flujo(crecimiento_pib,tasa_desempleo,muertes_conflicto,control_corrupcion):
+    datos_prediccion = {}
+    datos_prediccion = [[crecimiento_pib, tasa_desempleo, muertes_conflicto, control_corrupcion,]]
+    df = pd.DataFrame(datos_prediccion)
+    prediccion = modelo.predict(df)
+    return prediccion[0]
