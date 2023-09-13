@@ -199,4 +199,5 @@ def prediccion_flujo(crecimiento_pib,tasa_desempleo,muertes_conflicto,control_co
     datos_prediccion = [[crecimiento_pib, tasa_desempleo, muertes_conflicto, control_corrupcion,]]
     df = pd.DataFrame(datos_prediccion)
     prediccion = modelo.predict(df)
-    return prediccion[0]
+    prediccion_entero = int(prediccion[0])
+    return prediccion_entero
