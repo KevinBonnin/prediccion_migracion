@@ -3,6 +3,7 @@ from fastapi import FastAPI
 import uvicorn
 import joblib
 from enum import Enum
+import json
 
 indicadores = pd.read_csv('indicadores.csv')
 
@@ -185,6 +186,29 @@ def obtener_datos_por_pais(pais):
         lista_fila = fila_buscada.iloc[0].drop('Pais').tolist()
     return lista_fila
 
+def lista_predicciones():
+    global indicadores
+    datos_prediccion = indicadores[['Pais', 'Crecimiento_PIB', 'Tasa_desempleo', 'Muertes_Conflicto', 'Control_Corrupcion']]
+    prediccion = modelo.predict(datos_prediccion.iloc[:, 1:])
+    prediccion_entero = [int(valor) for valor in prediccion]
+
+    # Crea una lista de diccionarios con los datos
+    lista_datos = []
+    for index, row in datos_prediccion.iterrows():
+        pais = row['Pais']
+        indicadores = row[1:].tolist()
+        diccionario = {
+            'Pais': pais,
+            'Crecimiento_PIB': indicadores[0],
+            'Tasa_desempleo': indicadores[1],
+            'Muertes_Conflicto': indicadores[2],
+            'Control_Corrupcion': indicadores[3],
+            'Prediccion': prediccion_entero[index]
+        }
+        lista_datos.append(diccionario)
+
+    return lista_datos
+
 @app.get("/Modelo de prediccion/Predice con datos del 2019")
 def prediccion_flujo(pais: Pais):
     datos_prediccion = obtener_datos_por_pais(pais)
@@ -192,6 +216,15 @@ def prediccion_flujo(pais: Pais):
     prediccion = modelo.predict(df)
     prediccion_entero = int(prediccion[0])
     return prediccion_entero
+@app.get("/lista")
+def lista():
+    resultado_lista = lista_predicciones()
+
+# Convierte la lista de diccionarios en una cadena JSON con formato
+    resultado_json = json.dumps(resultado_lista, indent=4)  # indent para una representación JSON con formato
+
+# Imprime o guarda el resultado JSON
+    resultado_json
 
 @app.get("/Modelo de prediccion/Insercion de datos manual")
 def prediccion_flujo(crecimiento_pib,tasa_desempleo,muertes_conflicto,control_corrupcion):
